@@ -2,7 +2,7 @@
 
 Platform-agnostic, lightweight vector icons, official brand palettes, tracking URLs, and metadata for shipping carriers, parcel networks, and freight logistics forwarders.
 
-Designed for e-commerce shops, warehouse management systems (WMS), transport management systems (TMS), ERPs, and delivery tracking dashboards.
+Designed for e-commerce shops, warehouse management systems (WMS), transport management systems (TMS), ERPs, and delivery tracking dashboards by [Mediabridge Solutions](https://mediabridge.solutions).
 
 🌐 **Interactive Icon Preview & Registry Table**: [https://mediabridge-solutions.github.io/carrier-icons/](https://mediabridge-solutions.github.io/carrier-icons/)
 
@@ -191,5 +191,5 @@ We welcome contributions of additional carriers, regional forwarders, and update
 
 ## License
 
-[MIT](LICENSE) © [Mediabridge Solutions](https://github.com/mediabridge-solutions)
+[MIT](LICENSE) © [Mediabridge Solutions](https://mediabridge.solutions)
 
