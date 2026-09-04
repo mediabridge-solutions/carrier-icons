@@ -1,0 +1,58 @@
+{
+  "name": "@mediabridge/carrier-icons",
+  "version": "0.1.0",
+  "description": "Platform-agnostic, lightweight vector icons, brand color palettes, tracking URLs, and metadata for shipping carriers and freight logistics providers.",
+  "author": "Mediabridge",
+  "license": "MIT",
+  "homepage": "https://github.com/mediabridge/carrier-icons#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mediabridge/carrier-icons.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mediabridge/carrier-icons/issues"
+  },
+  "keywords": [
+    "shipping",
+    "carrier",
+    "logistics",
+    "carrier-icons",
+    "shipping-icons",
+    "parcel",
+    "freight",
+    "dhl",
+    "dpd",
+    "ups",
+    "fedex",
+    "svg-icons"
+  ],
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node --test test/*.test.cjs",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.30",
+    "typescript": "^5.4.0"
+  }
+}
