@@ -192,9 +192,12 @@ const carrier = computed(() => getCarrier(props.carrierCode));
 
 ---
 
-## Contributing & Roadmap
+## Contributing & Feature Requests
 
-We welcome contributions of additional carriers, regional forwarders, and updated tracking URL templates.
+- **Missing a provider?** [Request a carrier here →](https://github.com/mediabridge-solutions/carrier-icons/issues/new)
+- **Want to contribute your own carrier icon or found a bug?** [Open a Pull Request →](https://github.com/mediabridge-solutions/carrier-icons/pulls)
+
+We welcome contributions of additional parcel couriers, regional freight forwarders, and updated tracking URL templates.
 
 ### Roadmap
 - [ ] Dedicated React component package (`@mediabridge-solutions/carrier-icons-react`)
