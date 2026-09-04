@@ -5,15 +5,19 @@ on:
     types: [published]
   push:
     tags:
-      - 'v*.*.*'
+      - 'v*'
   workflow_dispatch:
 
+permissions:
+  contents: read
+  id-token: write # Required for OIDC Trusted Publishing
+
 jobs:
-  build-and-publish:
+  publish:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      id-token: write
+      id-token: write # Required for OIDC Trusted Publishing
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -33,7 +37,9 @@ jobs:
       - name: Build package distribution
         run: npm run build
 
+      # OIDC Trusted Publishing: No static secret/token required.
+      # npm automatically exchanges the GitHub Actions OIDC token for short-lived publish credentials
+      # and generates cryptographic provenance attestations.
       - name: Publish to npm
-        run: npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish --access public
+
