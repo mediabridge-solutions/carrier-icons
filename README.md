@@ -1,4 +1,4 @@
-# @mediabridge/carrier-icons
+# @mediabridge-solutions/carrier-icons
 
 Platform-agnostic, lightweight vector icons, official brand palettes, tracking URLs, and metadata for shipping carriers, parcel networks, and freight logistics forwarders.
 
@@ -21,11 +21,11 @@ Designed for e-commerce shops, warehouse management systems (WMS), transport man
 ## Installation
 
 ```bash
-npm install @mediabridge/carrier-icons
+npm install @mediabridge-solutions/carrier-icons
 # or
-yarn add @mediabridge/carrier-icons
+yarn add @mediabridge-solutions/carrier-icons
 # or
-pnpm add @mediabridge/carrier-icons
+pnpm add @mediabridge-solutions/carrier-icons
 ```
 
 ---
@@ -35,7 +35,7 @@ pnpm add @mediabridge/carrier-icons
 ### 1. Basic Carrier Lookup & Metadata
 
 ```typescript
-import { getCarrier, hasCarrier } from '@mediabridge/carrier-icons';
+import { getCarrier, hasCarrier } from '@mediabridge-solutions/carrier-icons';
 
 // Check if a carrier is officially supported
 console.log(hasCarrier('dhl')); // true
@@ -64,22 +64,32 @@ console.log(carrier);
 */
 ```
 
-### 2. Automatic Fallback for Unknown or Custom Carriers
+### 2. Unknown Carrier Graceful Fallback
 
-If a custom forwarder or unknown code is provided, a graceful fallback definition is returned automatically:
+If an arbitrary forwarder or custom code is passed, `@mediabridge-solutions/carrier-icons` will never return `undefined` or null SVG. It produces a crisp, deterministic color-hashed badge and SVG:
 
 ```typescript
-const custom = getCarrier('schneider_transporte');
+import { getCarrier } from '@mediabridge-solutions/carrier-icons';
 
-console.log(custom.label); // "Schneider Transporte"
-console.log(custom.colors); // Deterministic high-contrast color palette, e.g. { bg: '#2b5876', fg: '#ffffff', ... }
-console.log(custom.svg); // Vector badge SVG generated on the fly
+const regionalLogistics = getCarrier('spedition_mueller_gmbh');
+console.log(regionalLogistics);
+/*
+{
+  code: 'spedition_mueller_gmbh',
+  name: 'spedition_mueller_gmbh',
+  label: 'SP',
+  category: 'custom',
+  isFallback: true,
+  colors: { bg: '#...', fg: '#ffffff', border: '#...' },
+  svg: '<svg ... fallback initials badge ... </svg>'
+}
+*/
 ```
 
-### 3. Tracking URLs
+### 3. Tracking URL Generator
 
 ```typescript
-import { getCarrier, getTrackingUrl } from '@mediabridge/carrier-icons';
+import { getCarrier, getTrackingUrl } from '@mediabridge-solutions/carrier-icons';
 
 const dhl = getCarrier('dhl');
 const trackingUrl = getTrackingUrl(dhl, '00340434123456789012');
@@ -89,7 +99,7 @@ const trackingUrl = getTrackingUrl(dhl, '00340434123456789012');
 ### 4. Direct DOM Elements (ag-Grid, Vanilla JS, Table Renderers)
 
 ```typescript
-import { renderCarrierBadgeElement, renderCarrierBadgesElement } from '@mediabridge/carrier-icons';
+import { renderCarrierBadgeElement, renderCarrierBadgesElement } from '@mediabridge-solutions/carrier-icons';
 
 // Single badge element
 const badgeEl = renderCarrierBadgeElement('dhl', { size: 'sm' });
@@ -125,7 +135,7 @@ const columnDefs = [
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { getCarrier } from '@mediabridge/carrier-icons';
+import { getCarrier } from '@mediabridge-solutions/carrier-icons';
 
 const props = defineProps<{ carrierCode: string; showIcon?: boolean }>();
 const carrier = computed(() => getCarrier(props.carrierCode));
@@ -170,8 +180,8 @@ const carrier = computed(() => getCarrier(props.carrierCode));
 We welcome contributions of additional carriers, regional forwarders, and updated tracking URL templates.
 
 ### Roadmap
-- [ ] Dedicated React component package (`@mediabridge/carrier-icons-react`)
-- [ ] Dedicated Vue 3 component package (`@mediabridge/carrier-icons-vue`)
+- [ ] Dedicated React component package (`@mediabridge-solutions/carrier-icons-react`)
+- [ ] Dedicated Vue 3 component package (`@mediabridge-solutions/carrier-icons-vue`)
 - [ ] Standalone Web Component (`<carrier-badge>`)
 - [ ] Additional carriers: Colissimo, Chronopost, PostNL, Correos, Royal Mail, Bpost, Bring, PostNord.
 
@@ -179,4 +189,5 @@ We welcome contributions of additional carriers, regional forwarders, and update
 
 ## License
 
-[MIT](LICENSE) © [Mediabridge](https://github.com/mediabridge)
+[MIT](LICENSE) © [Mediabridge Solutions](https://github.com/mediabridge-solutions)
+

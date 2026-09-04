@@ -1,16 +1,19 @@
 {
-  "name": "@mediabridge/carrier-icons",
+  "name": "@mediabridge-solutions/carrier-icons",
   "version": "0.1.0",
   "description": "Platform-agnostic, lightweight vector icons, brand color palettes, tracking URLs, and metadata for shipping carriers and freight logistics providers.",
-  "author": "Mediabridge",
+  "author": "Mediabridge Solutions",
   "license": "MIT",
-  "homepage": "https://github.com/mediabridge/carrier-icons#readme",
+  "homepage": "https://github.com/mediabridge-solutions/carrier-icons#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mediabridge/carrier-icons.git"
+    "url": "git+https://github.com/mediabridge-solutions/carrier-icons.git"
   },
   "bugs": {
-    "url": "https://github.com/mediabridge/carrier-icons/issues"
+    "url": "https://github.com/mediabridge-solutions/carrier-icons/issues"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "keywords": [
     "shipping",
