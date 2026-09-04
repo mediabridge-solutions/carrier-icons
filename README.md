@@ -4,6 +4,8 @@ Platform-agnostic, lightweight vector icons, official brand palettes, tracking U
 
 Designed for e-commerce shops, warehouse management systems (WMS), transport management systems (TMS), ERPs, and delivery tracking dashboards.
 
+🌐 **Interactive Icon Preview & Registry Table**: [https://mediabridge-solutions.github.io/carrier-icons/](https://mediabridge-solutions.github.io/carrier-icons/)
+
 ---
 
 ## Features

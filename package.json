@@ -1,6 +1,6 @@
 {
   "name": "@mediabridge-solutions/carrier-icons",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Platform-agnostic, lightweight vector icons, brand color palettes, tracking URLs, and metadata for shipping carriers and freight logistics providers.",
   "author": "Mediabridge Solutions",
   "license": "MIT",
@@ -50,7 +50,8 @@
     "LICENSE"
   ],
   "scripts": {
-    "build": "node scripts/build.mjs",
+    "build": "node scripts/build.mjs && node scripts/build-docs.mjs",
+    "build:docs": "node scripts/build-docs.mjs",
     "test": "node --test test/*.test.cjs",
     "prepublishOnly": "npm run build"
   },
