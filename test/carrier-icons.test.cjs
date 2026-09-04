@@ -33,9 +33,11 @@ test('resolves carrier by direct code and alias', () => {
   assert.equal(dhl.colors.bg, '#ffcc00');
   assert.equal(dhl.colors.fg, '#d40511');
 
-  const kleine = getCarrier('24plus');
-  assert.equal(kleine.code, 'kleine');
-  assert.equal(kleine.label, 'Kleine');
+  const twentyFour = getCarrier('24plus');
+  assert.equal(twentyFour.code, '24plus');
+  assert.equal(twentyFour.label, '24plus');
+  assert.ok(twentyFour.inlineSvg.includes('<svg'));
+  assert.ok(twentyFour.svg.includes('<svg'));
 });
 
 test('generates robust fallback for unknown carrier', () => {

@@ -38,6 +38,7 @@ export const {
   gebruederWeiss,
   planzer,
   tnt,
+  twentyFourPlus,
   manual
 } = pkg;
 export default pkg;

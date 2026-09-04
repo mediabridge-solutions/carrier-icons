@@ -1,1 +1,1 @@
-{"version":3,"file":"swissPost.d.ts","sourceRoot":"","sources":["../../src/carriers/swissPost.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,iBAAiB,EAAE,MAAM,UAAU,CAAC;AAE7C,eAAO,MAAM,SAAS,EAAE,iBAgBvB,CAAC"}
+{"version":3,"file":"swissPost.d.ts","sourceRoot":"","sources":["../../src/carriers/swissPost.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,iBAAiB,EAAE,MAAM,UAAU,CAAC;AAE7C,eAAO,MAAM,SAAS,EAAE,iBAiBvB,CAAC"}

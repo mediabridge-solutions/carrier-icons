@@ -29,5 +29,6 @@ __exportStar(require("./dbSchenker"), exports);
 __exportStar(require("./gebruederWeiss"), exports);
 __exportStar(require("./planzer"), exports);
 __exportStar(require("./tnt"), exports);
+__exportStar(require("./twentyFourPlus"), exports);
 __exportStar(require("./manual"), exports);
 //# sourceMappingURL=index.js.map

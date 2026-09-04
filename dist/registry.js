@@ -86,13 +86,15 @@ function getCarrier(identifier) {
         .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
         .join(' ');
     const colors = (0, colors_1.generateFallbackColors)(raw);
+    const fallbackSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 24" width="100" height="24"><rect width="100" height="24" fill="${colors.bg}" rx="3"/><text x="50" y="16" fill="${colors.fg}" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-weight="700" font-size="11" text-anchor="middle" letter-spacing="1">${escapeXml(label.slice(0, 10).toUpperCase())}</text></svg>`;
     const fallback = {
         code: raw,
         name: label,
         label,
         category: 'manual',
         colors,
-        svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 24" width="100" height="24"><rect width="100" height="24" fill="${colors.bg}" rx="3"/><text x="50" y="16" fill="${colors.fg}" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-weight="700" font-size="11" text-anchor="middle" letter-spacing="1">${escapeXml(label.slice(0, 10).toUpperCase())}</text></svg>`,
+        svg: fallbackSvg,
+        inlineSvg: fallbackSvg,
     };
     return fallback;
 }

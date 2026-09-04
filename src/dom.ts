@@ -43,14 +43,17 @@ export function renderCarrierBadgeElement(
     ...(options.style || {}),
   });
 
-  if (options.showIcon && carrier.svg) {
-    const iconContainer = document.createElement('span');
-    iconContainer.style.display = 'inline-block';
-    iconContainer.style.width = '18px';
-    iconContainer.style.height = '14px';
-    iconContainer.style.marginRight = '6px';
-    iconContainer.innerHTML = carrier.svg;
-    span.appendChild(iconContainer);
+  if (options.showIcon) {
+    const iconSvg = options.logoType === 'real' ? carrier.svg : (carrier.inlineSvg || carrier.svg);
+    if (iconSvg) {
+      const iconContainer = document.createElement('span');
+      iconContainer.style.display = 'inline-flex';
+      iconContainer.style.alignItems = 'center';
+      iconContainer.style.justifyContent = 'center';
+      iconContainer.style.marginRight = '6px';
+      iconContainer.innerHTML = iconSvg;
+      span.appendChild(iconContainer);
+    }
   }
 
   const textNode = document.createTextNode(carrier.label);

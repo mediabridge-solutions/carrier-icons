@@ -13,4 +13,5 @@ export * from './dbSchenker';
 export * from './gebruederWeiss';
 export * from './planzer';
 export * from './tnt';
+export * from './twentyFourPlus';
 export * from './manual';

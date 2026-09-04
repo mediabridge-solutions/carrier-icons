@@ -1,1 +1,1 @@
-{"version":3,"file":"deutschePost.d.ts","sourceRoot":"","sources":["../../src/carriers/deutschePost.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,iBAAiB,EAAE,MAAM,UAAU,CAAC;AAE7C,eAAO,MAAM,YAAY,EAAE,iBAgB1B,CAAC"}
+{"version":3,"file":"deutschePost.d.ts","sourceRoot":"","sources":["../../src/carriers/deutschePost.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,iBAAiB,EAAE,MAAM,UAAU,CAAC;AAE7C,eAAO,MAAM,YAAY,EAAE,iBAiB1B,CAAC"}

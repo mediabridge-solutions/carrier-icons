@@ -9,8 +9,11 @@ if (!fs.existsSync(docsDir)) {
   fs.mkdirSync(docsDir, { recursive: true });
 }
 
+const pkg = JSON.parse(fs.readFileSync(path.join(root, 'package.json'), 'utf8'));
+
 // Read index.js from dist
-const { listCarriers, generateFallbackColors } = await import(path.join(dist, 'index.js'));
+import { pathToFileURL } from 'node:url';
+const { listCarriers } = await import(pathToFileURL(path.join(dist, 'index.js')).href);
 const carriers = listCarriers();
 
 const carriersJson = JSON.stringify(carriers);
@@ -379,29 +382,41 @@ const html = `<!DOCTYPE html>
       background: rgba(30, 41, 59, 0.4);
     }
 
-    /* Badge Preview */
-    .badge-preview-cell {
-      min-width: 140px;
+    /* Badge & Logo Previews */
+    .logo-preview-cell {
+      min-width: 130px;
     }
 
-    .carrier-badge-container {
+    .real-logo-container {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 4px 8px;
+      background: #ffffff;
+      padding: 6px 12px;
       border-radius: 6px;
-      transition: transform 0.15s ease;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+      max-height: 42px;
     }
 
-    .carrier-badge-container:hover {
-      transform: scale(1.05);
+    .real-logo-container svg {
+      display: block;
+      height: 28px;
+      width: auto;
+      max-width: 120px;
+      object-fit: contain;
     }
 
-    .carrier-badge-container svg {
+    .inline-badge-container {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2px 0;
+    }
+
+    .inline-badge-container svg {
       display: block;
       height: 24px;
-      width: auto;
-      max-width: 110px;
+      width: 100px;
       border-radius: 4px;
     }
 
@@ -554,7 +569,7 @@ const html = `<!DOCTYPE html>
       <a href="https://mediabridge.solutions" class="nav-brand" target="_blank" rel="noopener" style="text-decoration:none;">
         <span class="icon-logo">🚚</span>
         <span>@mediabridge-solutions/carrier-icons</span>
-        <span class="version-pill">v0.1.1</span>
+        <span class="version-pill">v${pkg.version}</span>
       </a>
       <div class="nav-links">
         <a href="https://mediabridge.solutions" class="btn" target="_blank" rel="noopener">
@@ -627,7 +642,8 @@ const html = `<!DOCTYPE html>
       <table>
         <thead>
           <tr>
-            <th>Icon Preview</th>
+            <th>Real Logo</th>
+            <th>Inline Badge</th>
             <th>Carrier Name & Code</th>
             <th>Category</th>
             <th>Country</th>
@@ -670,7 +686,7 @@ const html = `<!DOCTYPE html>
       document.getElementById('totalCount').textContent = CARRIERS.length;
 
       if (filtered.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding: 40px; color: var(--text-muted);">No carriers found matching your search.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="9" style="text-align:center; padding: 40px; color: var(--text-muted);">No carriers found matching your search.</td></tr>';
         return;
       }
 
@@ -690,11 +706,18 @@ const html = `<!DOCTYPE html>
         // Category class
         const catClass = 'cat-' + (c.category || 'manual');
 
+        // Real logo markup
+        const realLogoMarkup = c.svg ? '<div class="real-logo-container">' + c.svg + '</div>' : '<span style="color:var(--text-dim);">—</span>';
+
+        // Inline badge markup
+        const inlineBadgeMarkup = c.inlineSvg ? '<div class="inline-badge-container">' + c.inlineSvg + '</div>' : '<span style="color:var(--text-dim);">—</span>';
+
         tr.innerHTML = \`
-          <td class="badge-preview-cell">
-            <div class="carrier-badge-container">
-              \${c.svg}
-            </div>
+          <td class="logo-preview-cell">
+            \${realLogoMarkup}
+          </td>
+          <td class="logo-preview-cell">
+            \${inlineBadgeMarkup}
           </td>
           <td>
             <div class="carrier-title">\${escapeHtml(c.name)}</div>
@@ -723,8 +746,11 @@ const html = `<!DOCTYPE html>
           </td>
           <td>
             <div class="actions-cell">
-              <button class="icon-action-btn" onclick="copyCarrierSvg('\${escapeHtml(c.code)}')" title="Copy SVG Source">
-                SVG
+              <button class="icon-action-btn" onclick="copyCarrierRealSvg('\${escapeHtml(c.code)}')" title="Copy Real Vector SVG">
+                Real SVG
+              </button>
+              <button class="icon-action-btn" onclick="copyCarrierInlineSvg('\${escapeHtml(c.code)}')" title="Copy 100x24 Inline Badge SVG">
+                Badge SVG
               </button>
               <button class="icon-action-btn" onclick="copyCarrierSnippet('\${escapeHtml(c.code)}')" title="Copy TS Import snippet">
                 Import
@@ -754,10 +780,18 @@ const html = `<!DOCTYPE html>
       });
     }
 
-    function copyCarrierSvg(code) {
+    function copyCarrierRealSvg(code) {
       const carrier = CARRIERS.find(c => c.code === code);
       if (carrier && carrier.svg) {
-        copyText(carrier.svg, 'Carrier SVG copied!');
+        copyText(carrier.svg, 'Real Vector SVG copied!');
+      }
+    }
+
+    function copyCarrierInlineSvg(code) {
+      const carrier = CARRIERS.find(c => c.code === code);
+      const svg = carrier ? (carrier.inlineSvg || carrier.svg) : '';
+      if (svg) {
+        copyText(svg, 'Inline Badge SVG copied!');
       }
     }
 

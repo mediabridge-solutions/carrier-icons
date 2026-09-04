@@ -30,6 +30,8 @@ export interface CarrierDefinition {
     aliases?: string[];
     /** Pure vector SVG string (optimized) */
     svg?: string;
+    /** Standardized 100x24 inline badge SVG string */
+    inlineSvg?: string;
     /** Tracking configuration */
     tracking?: CarrierTrackingConfig;
 }
@@ -38,6 +40,8 @@ export interface RenderBadgeOptions {
     className?: string;
     /** Include SVG logo inside the badge if available (defaults to false for plain badge) */
     showIcon?: boolean;
+    /** Logo variant to render: 'inline' (100x24 standardized) or 'real' (original vector SVG). Defaults to 'inline' */
+    logoType?: 'inline' | 'real';
     /** Size variant: 'sm' | 'md' | 'lg' (defaults to 'md') */
     size?: 'sm' | 'md' | 'lg';
     /** Extra inline styles */
