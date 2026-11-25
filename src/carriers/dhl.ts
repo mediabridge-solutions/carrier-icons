@@ -5,6 +5,7 @@ export const dhl: CarrierDefinition = {
   name: 'DHL Paket',
   label: 'DHL',
   category: 'parcel',
+  platformNames: { shopify: 'DHL' },
   country: 'DE',
   aliases: ['dhl_paket', 'dhl_express', 'dhl_freight', 'deutsche_post_dhl'],
   colors: {

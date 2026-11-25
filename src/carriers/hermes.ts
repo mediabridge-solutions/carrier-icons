@@ -5,6 +5,7 @@ export const hermes: CarrierDefinition = {
   name: 'Hermes / Evri',
   label: 'Hermes',
   category: 'parcel',
+  platformNames: { shopify: 'Hermes' },
   country: 'DE',
   aliases: ['myhermes', 'hermes_einrichtungsservice', 'evri'],
   colors: {

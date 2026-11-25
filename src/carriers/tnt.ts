@@ -5,6 +5,7 @@ export const tnt: CarrierDefinition = {
   name: 'TNT Express',
   label: 'TNT',
   category: 'express',
+  platformNames: { shopify: 'TNT' },
   country: 'NL',
   aliases: ['tnt_express', 'tnt_direct'],
   colors: {

@@ -91,3 +91,10 @@ test('detects the carrier from the tracking number format', () => {
   assert.equal(detectCarrierByTrackingNumber(''), null);
   assert.equal(detectCarrierByTrackingNumber(null), null);
 });
+
+test('carries platform-specific names where they differ from the standard name', () => {
+  assert.equal(getCarrier('dhl').platformNames.shopify, 'DHL');
+  assert.equal(getCarrier('swiss_post').platformNames, undefined);
+  assert.equal(getCarrier('swiss_post').name, 'Swiss Post');
+  assert.equal(getCarrier('ups').name, 'UPS');
+});

@@ -43,6 +43,13 @@ export interface CarrierDefinition {
   inlineSvg?: string;
   /** Tracking configuration */
   tracking?: CarrierTrackingConfig;
+  /**
+   * The carrier's name on platforms that only accept their own spelling, where it differs from
+   * `name` (e.g. Shopify's supported tracking companies: 'DHL' rather than 'DHL Paket').
+   */
+  platformNames?: {
+    shopify?: string;
+  };
 }
 
 export interface RenderBadgeOptions {
