@@ -14,6 +14,12 @@ export interface CarrierTrackingConfig {
   urlTemplate?: string;
   /** Description or instructions */
   description?: string;
+  /**
+   * Regular expressions (source strings, matched against the upper-cased number without spaces)
+   * that only this carrier's tracking numbers match. Used by detectCarrierByTrackingNumber();
+   * leave out formats other carriers share.
+   */
+  numberPatterns?: string[];
 }
 
 export interface CarrierDefinition {

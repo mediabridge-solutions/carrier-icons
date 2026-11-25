@@ -74,3 +74,20 @@ test('resolves compact codes, display names and full company names', () => {
   assert.equal(hasCarrier('Some Courier'), false);
   assert.equal(getCarrier('Some Courier').label, 'Some Courier');
 });
+
+test('detects the carrier from the tracking number format', () => {
+  const { detectCarrierByTrackingNumber } = require('../dist/index.js');
+  assert.equal(detectCarrierByTrackingNumber('1ZYG88576820003017').code, 'ups');
+  assert.equal(detectCarrierByTrackingNumber('1zyg 8857 6820 0030 17').code, 'ups');
+  assert.equal(detectCarrierByTrackingNumber('996000098400059724').code, 'swiss_post');
+  assert.equal(detectCarrierByTrackingNumber('99.60.000984.00059724').code, 'swiss_post');
+  assert.equal(detectCarrierByTrackingNumber('RR123456785CH').code, 'swiss_post');
+  assert.equal(detectCarrierByTrackingNumber('98.04.123456.12345678').code, 'swiss_post');
+  assert.equal(detectCarrierByTrackingNumber('980412345612345678').code, 'swiss_post');
+  assert.equal(detectCarrierByTrackingNumber('0350123456789'), null);
+  assert.equal(detectCarrierByTrackingNumber('00340433930757206954').code, 'dhl');
+  assert.equal(detectCarrierByTrackingNumber('CI423901499DE'), null);
+  assert.equal(detectCarrierByTrackingNumber('911218577612101552'), null);
+  assert.equal(detectCarrierByTrackingNumber(''), null);
+  assert.equal(detectCarrierByTrackingNumber(null), null);
+});

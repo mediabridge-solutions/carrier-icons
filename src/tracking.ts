@@ -1,4 +1,5 @@
 import { CarrierDefinition } from './types';
+import { listCarriers } from './registry';
 
 /**
  * Generate tracking URL for a carrier and tracking number.
@@ -21,4 +22,17 @@ export function getTrackingUrl(
   }
 
   return url;
+}
+
+/**
+ * The carrier a tracking number belongs to, judged by its format alone (CarrierTrackingConfig
+ * numberPatterns). Returns null when no carrier or more than one carrier matches, so callers can
+ * rely on a non-null answer.
+ */
+export function detectCarrierByTrackingNumber(trackingNumber: string | null | undefined): CarrierDefinition | null {
+  const value = String(trackingNumber || '').replace(/\s+/g, '').toUpperCase();
+  if (!value) return null;
+  const matches = listCarriers().filter((carrier) =>
+    (carrier.tracking?.numberPatterns || []).some((pattern) => new RegExp(pattern).test(value)));
+  return matches.length === 1 ? matches[0] : null;
 }
