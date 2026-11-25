@@ -40,7 +40,18 @@ exports.listCarriers = listCarriers;
 const colors_1 = require("./colors");
 const carrierModules = __importStar(require("./carriers"));
 const REGISTRY = new Map();
+// Codes and aliases, keyed by normalizeKey(): also used for substring matching.
 const ALIAS_MAP = new Map();
+// Display names and labels ("Swiss Post", "Die Post"), keyed by normalizeKey(): exact matches only,
+// because short labels like "Post" would otherwise match inside unrelated identifiers.
+const NAME_MAP = new Map();
+/**
+ * Identifiers arrive as codes ("post_ch"), compact codes ("postch") or free text ("Swiss Post",
+ * "Die Schweizerische Post"): compare them without case, spaces, underscores or punctuation.
+ */
+function normalizeKey(value) {
+    return value.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, '');
+}
 // Initialize registry with all predefined carriers
 for (const key of Object.keys(carrierModules)) {
     const item = carrierModules[key];
@@ -54,12 +65,22 @@ for (const key of Object.keys(carrierModules)) {
 function registerCarrier(carrier) {
     const code = carrier.code.toLowerCase();
     REGISTRY.set(code, carrier);
-    ALIAS_MAP.set(code, code);
+    ALIAS_MAP.set(normalizeKey(code), code);
     if (carrier.aliases) {
         for (const alias of carrier.aliases) {
-            ALIAS_MAP.set(alias.toLowerCase(), code);
+            ALIAS_MAP.set(normalizeKey(alias), code);
         }
     }
+    for (const name of [carrier.name, carrier.label]) {
+        if (name)
+            NAME_MAP.set(normalizeKey(name), code);
+    }
+}
+function resolveCode(identifier) {
+    const key = normalizeKey(identifier);
+    if (!key)
+        return undefined;
+    return ALIAS_MAP.get(key) || NAME_MAP.get(key);
 }
 /**
  * Look up a carrier definition by code, slug, or alias.
@@ -70,13 +91,14 @@ function getCarrier(identifier) {
         return REGISTRY.get('manual');
     }
     const raw = String(identifier).trim().toLowerCase();
-    const canonicalCode = ALIAS_MAP.get(raw) || raw;
-    if (REGISTRY.has(canonicalCode)) {
+    const canonicalCode = resolveCode(raw);
+    if (canonicalCode && REGISTRY.has(canonicalCode)) {
         return REGISTRY.get(canonicalCode);
     }
     // Attempt fuzzy / substring matching (e.g. "dhl paket int" -> "dhl")
+    const key = normalizeKey(raw);
     for (const [alias, code] of ALIAS_MAP.entries()) {
-        if (raw.includes(alias) && alias.length >= 3) {
+        if (key.includes(alias) && alias.length >= 3) {
             return REGISTRY.get(code);
         }
     }
@@ -104,8 +126,7 @@ function getCarrier(identifier) {
 function hasCarrier(identifier) {
     if (!identifier)
         return false;
-    const raw = String(identifier).trim().toLowerCase();
-    return ALIAS_MAP.has(raw);
+    return resolveCode(String(identifier).trim()) !== undefined;
 }
 /**
  * Returns all officially registered carrier definitions.

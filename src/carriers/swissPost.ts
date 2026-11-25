@@ -6,7 +6,7 @@ export const swissPost: CarrierDefinition = {
   label: 'Die Post',
   category: 'postal',
   country: 'CH',
-  aliases: ['post_ch', 'die_post', 'swisspost', 'la_poste_ch'],
+  aliases: ['post_ch', 'die_post', 'swisspost', 'la_poste_ch', 'die_schweizerische_post', 'la_poste_suisse', 'posta_svizzera'],
   colors: {
     bg: '#ffcc00',
     fg: '#d50000',

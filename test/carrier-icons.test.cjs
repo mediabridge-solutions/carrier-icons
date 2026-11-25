@@ -58,3 +58,19 @@ test('generates tracking URLs with placeholders', () => {
   const unknown = getCarrier('some_unknown');
   assert.equal(getTrackingUrl(unknown, '123'), null);
 });
+
+test('resolves compact codes, display names and full company names', () => {
+  assert.equal(getCarrier('postch').code, 'swiss_post');
+  assert.equal(getCarrier('POST_CH').code, 'swiss_post');
+  assert.equal(getCarrier('Swiss Post').code, 'swiss_post');
+  assert.equal(getCarrier('Die Schweizerische Post').code, 'swiss_post');
+  assert.equal(getCarrier('postat').code, 'post_at');
+  assert.equal(getCarrier('Österreichische Post').code, 'post_at');
+  assert.equal(getCarrier('DHL Paket').code, 'dhl');
+  assert.equal(getCarrier('SpediFux').code, 'planzer');
+  assert.equal(getCarrier('planzer_classic').code, 'planzer');
+  assert.equal(hasCarrier('Swiss Post'), true);
+  assert.equal(hasCarrier('postch'), true);
+  assert.equal(hasCarrier('Some Courier'), false);
+  assert.equal(getCarrier('Some Courier').label, 'Some Courier');
+});

@@ -6,7 +6,7 @@ export const planzer: CarrierDefinition = {
   label: 'Planzer',
   category: 'freight',
   country: 'CH',
-  aliases: ['planzer_paket', 'planzer_transport', 'planzer_ch'],
+  aliases: ['planzer_paket', 'planzer_transport', 'planzer_ch', 'spedifux'],
   colors: {
     bg: '#c4121a',
     fg: '#ffffff',
